@@ -1,8 +1,7 @@
 import java.util.HashSet;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.TreeSet;
 
-public class DepartementHashSet implements IDepartement {
+public class DepartementHashSet implements IDepartement<Departement> {
     private HashSet<Departement> departements;
 
     // Constructeur
@@ -10,22 +9,35 @@ public class DepartementHashSet implements IDepartement {
         this.departements = new HashSet<>();
     }
 
-    // Ajouter un département
     @Override
-    public boolean ajouterDepartement(Departement d) {
-        return departements.add(d);
+    public void ajouterDepartement(Departement departement) {
+        departements.add(departement);
     }
 
-    // Supprimer un département
     @Override
-    public boolean supprimerDepartement(Departement d) {
-        return departements.remove(d);
+    public boolean rechercherDepartement(String nom) {
+        return departements.stream().anyMatch(d -> d.getNom().equalsIgnoreCase(nom));
     }
 
+    @Override
+    public boolean rechercherDepartement(Departement departement) {
+        return departements.contains(departement);
+    }
 
+    @Override
+    public void supprimerDepartement(Departement departement) {
+        departements.remove(departement);
+    }
 
-    // Lister tous les départements
-    public HashSet<Departement> getDepartements() {
-        return departements ; 
+    @Override
+    public void displayDepartement() {
+        departements.forEach(System.out::println);
+    }
+
+    @Override
+    public TreeSet<Departement> trierDepartementById() {
+        TreeSet<Departement> sorted = new TreeSet<>((d1, d2) -> Integer.compare(d1.getId(), d2.getId()));
+        sorted.addAll(departements);
+        return sorted;
     }
 }

@@ -1,6 +1,11 @@
 import java.util.List;
+import java.util.TreeSet;
 
-public interface IDepartement {
-    boolean ajouterDepartement(Departement d);
-    boolean supprimerDepartement(Departement d);
-}
+public interface IDepartement<T>{
+    public void ajouterDepartement(T t);
+    public boolean rechercherDepartement(String nom);
+    public boolean rechercherDepartement(T t);
+    public void supprimerDepartement(T t);
+    public void displayDepartement();
+    public TreeSet<T> trierDepartementById();
+    }
